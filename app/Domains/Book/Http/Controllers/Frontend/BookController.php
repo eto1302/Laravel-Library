@@ -6,7 +6,7 @@ use App\Domains\Book\Models\Book;
 use App\Domains\Book\Services\BookService;
 use App\Http\Controllers\Controller;
 use Exception;
-use http\Client\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class BookController extends Controller
@@ -19,32 +19,15 @@ class BookController extends Controller
         $this->bookService = $bookService;
     }
 
-    public function books()
+    public function books(Request $request)
     {
-        $books = Book::all();
-        return view('frontend.book.books', ['books' => $books]);
-    }
-
-    public function booksByAuthor($authorName)
-    {
-        $books = Book::where('author', 'LIKE', '%' . $authorName . '%')->get();
-
-        return view('frontend.book.booksByAuthor', ['books' => $books]);
-    }
-
-    public function orderBook(Request $request)
-    {
-        $bookId = $request->input('book_id');
-        $userId = $request->input('user_id');
-
-        try {
-            $this->bookService->orderBook($userId, $bookId);
-
-            return response()->json(['success' => true, 'message' => 'Book ordered successfully']);
-        } catch (Exception $e) {
-            Log::error('Error ordering book: ' . $e->getMessage());
-
-            return response()->json(['success' => false, 'message' => 'Failed to order book. Please try again later.'], 500);
+        $authorName = $request->input('author');
+        if (!empty($authorName)) {
+            $books = Book::where('author', 'LIKE', '%' . $authorName . '%')->paginate(10);
+        } else {
+            $books = Book::paginate(10);
         }
+
+        return view('frontend.book.books', ['books' => $books]);
     }
 }

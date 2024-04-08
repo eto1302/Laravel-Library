@@ -4,6 +4,13 @@
 
 @section('content')
     <div style="display: flex; justify-content: center; text-align: center">
+        <form action="{{ route('frontend.book.books') }}" method="GET">
+            <input type="text" name="author" placeholder="Search by author">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <div style="display: flex; justify-content: center; text-align: center">
         <table>
             <thead>
             <tr>
@@ -38,4 +45,9 @@
             </tbody>
         </table>
     </div>
+
+    <div style="display: flex; justify-content: center; text-align: center">
+        {{$books->links()}}
+    </div>
+
 @endsection

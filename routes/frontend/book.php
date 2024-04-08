@@ -8,7 +8,6 @@
 
 use \App\Domains\Book\Http\Controllers\Frontend\BookController;
 
-Route::group(['as' => 'books.'], function () {
+Route::group(['as' => 'book.'], function () {
     Route::get('/books', [BookController::class, 'books'])->name('books');
-    Route::get('/books/author/{authorName}', [BookController::class, 'booksByAuthor'])->name('author');
 });

@@ -22,4 +22,8 @@
             </tbody>
         </table>
     </div>
+
+    <div style="display: flex; justify-content: center; text-align: center">
+        {{$orders->links()}}
+    </div>
 @endsection
