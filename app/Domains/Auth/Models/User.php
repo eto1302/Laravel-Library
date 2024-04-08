@@ -8,6 +8,7 @@ use App\Domains\Auth\Models\Traits\Relationship\UserRelationship;
 use App\Domains\Auth\Models\Traits\Scope\UserScope;
 use App\Domains\Auth\Notifications\Frontend\ResetPasswordNotification;
 use App\Domains\Auth\Notifications\Frontend\VerifyEmail;
+use App\Domains\Book\Models\Order;
 use DarkGhostHunter\Laraguard\Contracts\TwoFactorAuthenticatable;
 use DarkGhostHunter\Laraguard\TwoFactorAuthentication;
 use Database\Factories\UserFactory;
@@ -161,8 +162,8 @@ class User extends Authenticatable implements MustVerifyEmail, TwoFactorAuthenti
     }
 
 
-    public function bookOrders()
+    public function orders()
     {
-        return $this->hasMany(BookOrder::class);
+        return $this->hasMany(Order::class);
     }
 }

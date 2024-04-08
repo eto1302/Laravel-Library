@@ -25,8 +25,10 @@
                     <td>{{ $book->genre }}</td>
                     @auth
                         <td>
-                            <form action="{{ route('frontend.orders.orders', ['book' => $book->id, 'user' => auth() -> id()]) }}" method="POST">
+                            <form action="{{ route('frontend.order.store') }}" method="POST">
                                 @csrf
+                                <input type="hidden" name="book_id" value="{{ $book->id }}">
+                                <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                                 <button type="submit">Order</button>
                             </form>
                         </td>

@@ -5,7 +5,7 @@ namespace App\Domains\Book\Models;
 use App\Domains\Auth\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
-class BookOrder extends Model
+class Order extends Model
 {
     protected $fillable = ['user_id', 'book_id'];
 

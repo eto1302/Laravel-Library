@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('frontend.layouts.app')
+
+@section('title', __('Orders'))
 
 @section('content')
     <div class="container">
@@ -11,10 +13,10 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($bookOrders as $bookOrder)
+            @foreach($orders as $order)
                 <tr>
-                    <td>{{ $bookOrder->user->name }}</td>
-                    <td>{{ $bookOrder->book->title }}</td>
+                    <td>{{ $order->user->name }}</td>
+                    <td>{{ $order->book->title }}</td>
                 </tr>
             @endforeach
             </tbody>

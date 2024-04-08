@@ -84,6 +84,12 @@
                                 :text="__('My Account')"
                                 class="dropdown-item" />
 
+                                <x-utils.link
+                                    :href="route('frontend.order.orders')"
+                                    :active="activeClass(Route::is('frontend.order.orders'))"
+                                    :text="__('Orders')"
+                                    class="dropdown-item"/>
+
                             <x-utils.link
                                 :text="__('Logout')"
                                 class="dropdown-item"

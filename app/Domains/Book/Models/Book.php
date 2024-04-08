@@ -41,7 +41,11 @@ class Book extends Model
      * @var array
      */
     protected $casts = [
-        //
+        'id' => 'integer',
+        'author' => 'string',
+        'title' => 'string',
+        'year' => 'integer',
+        'genre' => 'string',
     ];
 
     /**
@@ -61,5 +65,10 @@ class Book extends Model
     protected static function newFactory()
     {
         return BookFactory::new();
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }
