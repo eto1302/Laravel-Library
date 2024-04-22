@@ -79,7 +79,7 @@
                     @endif
 
                     <a href="{{ route('frontend.user.account') }}">@lang('Account')</a>
-                        <a href="{{ route('frontend.books.books') }}">@lang('Books')</a>
+                        <a href="{{ route('frontend.book.books') }}">@lang('Books')</a>
                 @else
                     <a href="{{ route('frontend.auth.login') }}">@lang('Login')</a>
 

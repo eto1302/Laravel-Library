@@ -33,6 +33,8 @@ class UpdatePasswordController
      */
     public function update(UpdatePasswordRequest $request)
     {
+/**@DEBUG*/dd(__CLASS__.'::'.__FUNCTION__.':'.__LINE__,$request->validated());
+
         $this->userService->updatePassword($request->user(), $request->validated());
 
         return redirect()->route('frontend.user.account', ['#password'])->withFlashSuccess(__('Password successfully updated.'));
