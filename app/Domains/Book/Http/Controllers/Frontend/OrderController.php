@@ -19,7 +19,6 @@ class OrderController extends Controller
         } else {
             $orders = Auth::user()->orders()->paginate(10);
         }
-/**@DEBUG*/dump(__CLASS__.'::'.__FUNCTION__.':'.__LINE__,$orders->items());
         return view('frontend.order.orders', ['orders' => $orders]);
     }
 
