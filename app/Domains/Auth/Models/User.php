@@ -9,16 +9,20 @@ use App\Domains\Auth\Models\Traits\Scope\UserScope;
 use App\Domains\Auth\Notifications\Frontend\ResetPasswordNotification;
 use App\Domains\Auth\Notifications\Frontend\VerifyEmail;
 use App\Domains\Book\Models\Order;
-use DarkGhostHunter\Laraguard\Contracts\TwoFactorAuthenticatable;
-use DarkGhostHunter\Laraguard\TwoFactorAuthentication;
 use Database\Factories\UserFactory;
+use DateTimeInterface;
 use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 use Lab404\Impersonate\Models\Impersonate;
+use Laragear\TwoFactor\Contracts\TwoFactorAuthenticatable;
+use Laragear\TwoFactor\Contracts\TwoFactorTotp;
+use Laragear\TwoFactor\TwoFactorAuthentication;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -165,5 +169,65 @@ class User extends Authenticatable implements MustVerifyEmail, TwoFactorAuthenti
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function hasTwoFactorEnabled(): bool
+    {
+        // TODO: Implement hasTwoFactorEnabled() method.
+    }
+
+    public function enableTwoFactorAuth(): void
+    {
+        // TODO: Implement enableTwoFactorAuth() method.
+    }
+
+    public function disableTwoFactorAuth(): void
+    {
+        // TODO: Implement disableTwoFactorAuth() method.
+    }
+
+    public function createTwoFactorAuth(): TwoFactorTotp
+    {
+        // TODO: Implement createTwoFactorAuth() method.
+    }
+
+    public function confirmTwoFactorAuth(string $code): bool
+    {
+        // TODO: Implement confirmTwoFactorAuth() method.
+    }
+
+    public function validateTwoFactorCode(?string $code = null, bool $useRecoveryCodes = true): bool
+    {
+        // TODO: Implement validateTwoFactorCode() method.
+    }
+
+    public function makeTwoFactorCode(DateTimeInterface|int|string $at = 'now', int $offset = 0): string
+    {
+        // TODO: Implement makeTwoFactorCode() method.
+    }
+
+    public function getRecoveryCodes(): Collection
+    {
+        // TODO: Implement getRecoveryCodes() method.
+    }
+
+    public function generateRecoveryCodes(): Collection
+    {
+        // TODO: Implement generateRecoveryCodes() method.
+    }
+
+    public function safeDevices(): Collection
+    {
+        // TODO: Implement safeDevices() method.
+    }
+
+    public function addSafeDevice(Request $request): string
+    {
+        // TODO: Implement addSafeDevice() method.
+    }
+
+    public function isSafeDevice(Request $request): bool
+    {
+        // TODO: Implement isSafeDevice() method.
     }
 }
