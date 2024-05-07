@@ -4,10 +4,10 @@ namespace App\Domains\Auth\Http\Controllers\Frontend\Auth;
 
 use App\Domains\Auth\Services\UserService;
 use App\Rules\Captcha;
+use App\Rules\PasswordRules;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use LangleyFoxall\LaravelNISTPasswordRules\PasswordRules;
 
 /**
  * Class RegisterController.

@@ -4,7 +4,7 @@ namespace App\Domains\Auth\Http\Requests\Frontend\Auth;
 
 use App\Domains\Auth\Rules\UnusedPassword;
 use Illuminate\Foundation\Http\FormRequest;
-use LangleyFoxall\LaravelNISTPasswordRules\PasswordRules;
+use App\Rules\PasswordRules;
 
 /**
  * Class UpdatePasswordRequest.

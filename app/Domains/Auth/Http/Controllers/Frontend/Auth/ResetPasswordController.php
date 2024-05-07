@@ -4,10 +4,9 @@ namespace App\Domains\Auth\Http\Controllers\Frontend\Auth;
 
 use App\Domains\Auth\Rules\UnusedPassword;
 use App\Providers\RouteServiceProvider;
+use App\Rules\PasswordRules;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
-use LangleyFoxall\LaravelNISTPasswordRules\PasswordRules;
-
 /**
  * Class ResetPasswordController.
  */

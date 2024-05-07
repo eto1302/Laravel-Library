@@ -5,7 +5,7 @@ namespace App\Domains\Auth\Http\Requests\Backend\User;
 use App\Domains\Auth\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use LangleyFoxall\LaravelNISTPasswordRules\PasswordRules;
+use App\Rules\PasswordRules;
 
 /**
  * Class StoreUserRequest.
