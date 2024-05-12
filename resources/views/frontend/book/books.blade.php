@@ -18,6 +18,7 @@
                 <th>Author</th>
                 <th>Year</th>
                 <th>Genre</th>
+                <th>Quantity</th>
                 @auth
                     <th>Order</th>
                 @endauth
@@ -26,10 +27,11 @@
             <tbody>
             @foreach($books as $book)
                 <tr>
-                    <td>{{ $book->title }}</td>
-                    <td>{{ $book->author }}</td>
-                    <td>{{ $book->year }}</td>
-                    <td>{{ $book->genre }}</td>
+                    <td>{{ $book -> title }}</td>
+                    <td>{{ $book -> author }}</td>
+                    <td>{{ $book -> year }}</td>
+                    <td>{{ $book -> genre }}</td>
+                    <td>{{ $book -> quantity }}</td>
                     @auth
                         <td>
                             <form action="{{ route('frontend.order.store') }}" method="POST">

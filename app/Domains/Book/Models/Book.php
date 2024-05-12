@@ -24,6 +24,7 @@ class Book extends Model
         'title',
         'year',
         'genre',
+        'quantity'
     ];
 
     /**
@@ -46,6 +47,7 @@ class Book extends Model
         'title' => 'string',
         'year' => 'integer',
         'genre' => 'string',
+        'quantity' => 'integer'
     ];
 
     /**

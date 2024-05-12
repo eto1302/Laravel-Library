@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $fillable = ['user_id', 'book_id'];
+    protected $fillable = [
+        'user_id',
+        'book_id',
+        'return_date',
+        ];
 
     public function user()
     {
@@ -18,4 +22,15 @@ class Order extends Model
     {
         return $this->belongsTo(Book::class);
     }
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'user_id' => 'integer',
+        'book_id' => 'integer',
+        'return_date' => 'datetime'
+    ];
 }

@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->foreignId('book_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->date('order_date')->default(now()->addMonth());
             $table->timestamps();
         });
     }
