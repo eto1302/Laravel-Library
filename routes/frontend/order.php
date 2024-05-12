@@ -11,4 +11,5 @@ use \App\Domains\Book\Http\Controllers\Frontend\OrderController;
 Route::group(['as' => 'order.', 'middleware' => 'auth'], function () {
     Route::get('/orders', [OrderController::class, 'orders'])->name('orders');
     Route::post('/orders', [OrderController::class, 'store'])->name('store');
+    Route::post('/orders/return', [OrderController::class, 'return'])->name('return');
 });

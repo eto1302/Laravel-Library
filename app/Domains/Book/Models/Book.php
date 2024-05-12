@@ -3,10 +3,12 @@
 namespace App\Domains\Book\Models;
 
 use Database\Factories\BookFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * @mixin Eloquent
  * Class Book.
  */
 class Book extends Model

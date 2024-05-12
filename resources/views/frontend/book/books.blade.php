@@ -31,7 +31,15 @@
                     <td>{{ $book -> author }}</td>
                     <td>{{ $book -> year }}</td>
                     <td>{{ $book -> genre }}</td>
-                    <td>{{ $book -> quantity }}</td>
+                    <td class="
+                        @if ($book->quantity === 0)
+                            zero-quantity
+                        @elseif ($book->quantity >= 1 && $book->quantity <= 5)
+                            low-quantity
+                        @else
+                            high-quantity
+                        @endif
+                        ">{{ $book -> quantity }}</td>
                     @auth
                         <td>
                             <form action="{{ route('frontend.order.store') }}" method="POST">

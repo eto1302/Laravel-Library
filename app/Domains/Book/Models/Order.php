@@ -3,8 +3,13 @@
 namespace App\Domains\Book\Models;
 
 use App\Domains\Auth\Models\User;
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @mixin Eloquent
+ * Class Order.
+ */
 class Order extends Model
 {
     protected $fillable = [
