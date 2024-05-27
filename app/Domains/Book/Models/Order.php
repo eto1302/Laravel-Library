@@ -3,7 +3,9 @@
 namespace App\Domains\Book\Models;
 
 use App\Domains\Auth\Models\User;
+use Database\Factories\OrderFactory;
 use Eloquent;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -12,6 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Order extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'user_id',
         'book_id',
@@ -38,4 +42,14 @@ class Order extends Model
         'book_id' => 'integer',
         'return_date' => 'datetime'
     ];
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return OrderFactory::new();
+    }
 }

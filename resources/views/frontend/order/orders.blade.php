@@ -19,7 +19,11 @@
                 <tr>
                     <td>{{ $order->user->name }}</td>
                     <td>{{ $order->book->title }}</td>
-                    <td>{{ $order->return_date->format('d-m-Y')  }}</td>
+                    <td style="
+                    @if($order->return_date->isPast())
+                        color: red;
+                    @endif">
+                        {{ $order->return_date->format('d-m-Y')  }}</td>
                     @auth
                         <td>
                             <form action="{{ route('frontend.order.return') }}" method="POST">

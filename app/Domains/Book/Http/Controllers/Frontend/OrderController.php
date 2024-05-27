@@ -38,8 +38,8 @@ class OrderController extends Controller
 
         $result = $this->bookService->orderBook($request->input('user_id'), $request->input('book_id'));
 
-        if (is_string($result)) {
-            return redirect()->back()->withErrors($result);
+        if ($result == null) {
+            return redirect()->back()->withErrors(['order_id' => "Book is out of stock."]);
         }
         return redirect()->back()->withFlashSuccess(__('Order was successfully placed.'));
     }
@@ -54,8 +54,8 @@ class OrderController extends Controller
 
         $result = $this->bookService->returnBook($request->input('order_id'), $request->input('user_id'));
 
-        if (is_string($result)) {
-            return redirect()->back()->withErrors($result);
+        if ($result == null) {
+            return redirect()->back()->withErrors(['order_id' => "You are not allowed to return this book."]);
         }
         return redirect()->back()->withFlashSuccess(__('Book was successfully returned.'));
     }

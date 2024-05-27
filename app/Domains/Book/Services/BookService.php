@@ -5,43 +5,47 @@ namespace App\Domains\Book\Services;
 use App\Domains\Auth\Models\User;
 use App\Domains\Book\Models\Book;
 use App\Domains\Book\Models\Order;
+use Illuminate\Support\Facades\DB;
 
 class BookService
 {
-    public function orderBook($userId, $bookId): string | Order
+    public function orderBook(int $userId, int $bookId): ?Order
     {
-        $book = Book::findOrFail($bookId);
+        return DB::transaction(function () use ($userId, $bookId) {
+            $book = Book::query()->lockForUpdate()->findOrFail($bookId);
 
-        if ($book->quantity === 0) {
-            return "Sorry, this book is out of stock.";
-        }
+            if ($book->quantity === 0) {
+                return null;
+            }
 
-        $book->decrement('quantity');
 
-        $user = User::findOrFail($userId);
+            $book->decrement('quantity');
 
-        $order = new Order();
-        $order->book_id = $book->id;
-        $order->user_id = $user->id;
-        $order->return_date = now()->addMonth();
-        $order->save();
+            $user = User::findOrFail($userId);
 
-        return $order;
+            $order = new Order();
+            $order->book_id = $book->id;
+            $order->user_id = $user->id;
+            $order->return_date = now()->addMonth();
+            $order->save();
+
+            return $order;
+        });
     }
 
-    public function returnBook($orderId, $userId) : string | Order
+    public function returnBook(int $orderId, int $userId): ?Order
     {
-        $order = Order::findOrFail($orderId);
-        error_log('Order User ID: ' . $order->user->id . ', Type: ' . gettype($order->user->id));
-        error_log('Passed User ID: ' . $userId . ', Type: ' . gettype($userId));
-        if((string) $order->user->id != $userId) {
-            return "You are not allowed to return this book.";
-        }
+        return DB::transaction(function () use ($orderId, $userId) {
+            $order = Order::findOrFail($orderId);
+            if ((string)$order->user->id != $userId) {
+                return null;
+            }
 
-        $order->book->increment('quantity');
+            $order->book->increment('quantity');
 
-        $order->delete();
+            $order->delete();
 
-        return $order;
+            return $order;
+        });
     }
 }

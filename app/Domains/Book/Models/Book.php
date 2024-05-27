@@ -21,7 +21,6 @@ class Book extends Model
      * @var array
      */
     protected $fillable = [
-        'id',
         'author',
         'title',
         'year',
@@ -44,11 +43,7 @@ class Book extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
-        'author' => 'string',
-        'title' => 'string',
         'year' => 'integer',
-        'genre' => 'string',
         'quantity' => 'integer'
     ];
 
