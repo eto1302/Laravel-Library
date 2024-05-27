@@ -22,12 +22,12 @@ class BookServiceTest extends TestCase
 
         $this->user = User::factory()->create();
         $this->book = Book::factory()->create(['quantity' => 5]);
-        $this->bookstore =  new BookService();
+        $this->bookService =  new BookService();
     }
 
     public function test_successful_order()
     {
-        $order = $this->bookstore->orderBook($this->user->id, $this->book->id);
+        $order = $this->bookService->orderBook($this->user->id, $this->book->id);
 
         $this->assertInstanceOf(Order::class, $order);
         $this->assertEquals($this->user->id, $order->user_id);
@@ -51,7 +51,7 @@ class BookServiceTest extends TestCase
     public function test_failed_order_quantity()
     {
         $emptyBook = Book::factory()->create(['quantity' => 0]);
-        $order = $this->bookstore->orderBook($this->user->id, $emptyBook->id);
+        $order = $this->bookService->orderBook($this->user->id, $emptyBook->id);
 
         $this->assertNull($order, 'Order should be null');
 
@@ -75,7 +75,7 @@ class BookServiceTest extends TestCase
     public function test_successful_return()
     {
         $order = Order::factory()->create(['book_id' => $this->book->id, 'user_id' => $this->user->id, 'return_date' => now()->addMonth()]);
-        $returned = $this->bookstore->returnBook($order->id, $this->user->id);
+        $returned = $this->bookService->returnBook($order->id, $this->user->id);
 
         $this->assertInstanceOf(Order::class, $order);
         $this->assertInstanceOf(Order::class, $returned);
@@ -100,7 +100,7 @@ class BookServiceTest extends TestCase
     {
         $newUser = User::factory()->create();
         $order = Order::factory()->create(['book_id' => $this->book->id, 'user_id' => $this->user->id, 'return_date' => now()->addMonth()]);
-        $returned = $this->bookstore->returnBook($order->id, $newUser->id);
+        $returned = $this->bookService->returnBook($order->id, $newUser->id);
 
         $this->assertNull($returned, 'Order should be null');
 
