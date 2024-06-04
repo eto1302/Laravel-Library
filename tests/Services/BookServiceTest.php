@@ -7,6 +7,7 @@ use App\Domains\Book\Models\Book;
 use App\Domains\Book\Models\Order;
 use App\Domains\Book\Services\BookService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class BookServiceTest extends TestCase
@@ -117,5 +118,41 @@ class BookServiceTest extends TestCase
             'user_id' => $order->user_id,
             'return_date' => $order->return_date
         ]);
+    }
+
+    public function test_order_book_concurrent_access()
+    {
+        $book = Book::factory()->create(['quantity' => 1]);
+
+        $user1 = User::factory()->create();
+        $user2 = User::factory()->create();
+
+        $this->withoutExceptionHandling();
+
+        $results = DB::transaction(function () use ($user1, $user2, $book) {
+            return function () use ($user1, $user2, $book) {
+                DB::connection()->enableQueryLog();
+
+                $order1 = $this->bookService->orderBook($user1->id, $book->id);
+                DB::connection()->flushQueryLog();
+
+                DB::connection()->enableQueryLog();
+                $order2 = $this->bookService->orderBook($user2->id, $book->id);
+                DB::connection()->flushQueryLog();
+
+                return array($order1, $order2);
+            };
+        });
+
+        $order1 = $results
+        $order2 = $results[1];
+
+        $this->assertTrue(($order1 !== null && $order2 === null) || ($order1 === null && $order2 !== null));
+
+        $this->assertDatabaseHas('orders', [
+            'book_id' => $book->id,
+        ]);
+
+        $this->assertEquals(0, $book->quantity);
     }
 }
